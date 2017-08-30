@@ -1,14 +1,10 @@
 class PagesController < ApplicationController
   def index
-    @page = Page.all
+    @pages = Page.all
   end
 
   def show
     @page = Page.find(params[:id])
-  end
-
-  def new
-    @page = Page.new
   end
 
   def edit
@@ -17,19 +13,22 @@ class PagesController < ApplicationController
 
   def update
     @page = Page.find(params[:id])
-
-    if @page.update(pages_params)
-      redirect_to pages_path
+    if @page.update(page_params)
+      redirect_to page_path(@page)
     else
       render :edit
     end
   end
 
+  def new
+    @page = Page.new
+  end
+
   def create
-    @page = Page.new(pages_params)
+    @page = Page.new(page_params)
 
     if @page.save
-      redirect_to pages_path
+      redirect_to page_path(page)
     else
       render :new
     end
